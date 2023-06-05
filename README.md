@@ -52,8 +52,7 @@ Switch Expression:
     10,000 - 0.0000097ms/shape :: 0.0966ms (Min: 0.0936ms, Max: 0.1049ms, Diff: 0.0113)
    100,000 - 0.0000085ms/shape :: 0.8453ms (Min: 0.8243ms, Max: 0.892ms, Diff: 0.0677)
  1,000,000 - 0.0000086ms/shape :: 8.5640ms (Min: 8.4173ms, Max: 8.7489ms, Diff: 0.3316)
-
-Class Strategy:
+Class Strategy With Jump Table:
         10 - 0.0000192ms/shape :: 0.0002ms (Min: 0.0001ms, Max: 0.0018ms, Diff: 0.0017)
        100 - 0.0000176ms/shape :: 0.0018ms (Min: 0.0017ms, Max: 0.0022ms, Diff: 0.0005)
      1,000 - 0.0000205ms/shape :: 0.0205ms (Min: 0.0164ms, Max: 0.388ms, Diff: 0.3716)
@@ -61,13 +60,30 @@ Class Strategy:
    100,000 - 0.0000114ms/shape :: 1.1374ms (Min: 1.1033ms, Max: 1.2683ms, Diff: 0.1650)
  1,000,000 - 0.0000115ms/shape :: 11.5422ms (Min: 11.3631ms, Max: 12.1826ms, Diff: 0.8195)
 
-Func Strategy:
+Func Strategy With Jump Table:
         10 - 0.0000248ms/shape :: 0.0002ms (Min: 0.0002ms, Max: 0.0018ms, Diff: 0.0016)
        100 - 0.0000259ms/shape :: 0.0026ms (Min: 0.0025ms, Max: 0.0029ms, Diff: 0.0004)
      1,000 - 0.0000302ms/shape :: 0.0302ms (Min: 0.0255ms, Max: 0.3922ms, Diff: 0.3667)
     10,000 - 0.0000179ms/shape :: 0.1793ms (Min: 0.1711ms, Max: 0.2142ms, Diff: 0.0431)
    100,000 - 0.0000169ms/shape :: 1.6906ms (Min: 1.6555ms, Max: 1.7574ms, Diff: 0.1019)
  1,000,000 - 0.0000169ms/shape :: 16.8721ms (Min: 16.5575ms, Max: 17.2304ms, Diff: 0.6729)
+
+Class Strategy Without Jump Table:
+        10 - 0.0000436ms/shape :: 0.0004ms (Min: 0.0002ms, Max: 0.0079ms, Diff: 0.0077)
+       100 - 0.0000365ms/shape :: 0.0037ms (Min: 0.0026ms, Max: 0.0095ms, Diff: 0.0069)
+     1,000 - 0.0000388ms/shape :: 0.0388ms (Min: 0.033ms, Max: 0.2384ms, Diff: 0.2054)
+    10,000 - 0.0000405ms/shape :: 0.4053ms (Min: 0.2632ms, Max: 10.6652ms, Diff: 10.4020)
+   100,000 - 0.0000274ms/shape :: 2.7389ms (Min: 2.5808ms, Max: 3.0112ms, Diff: 0.4304)
+ 1,000,000 - 0.0000274ms/shape :: 27.3644ms (Min: 26.8763ms, Max: 28.2118ms, Diff: 1.3355)
+
+Func Strategy Without Jump Table:
+        10 - 0.0000182ms/shape :: 0.0002ms (Min: 0.0001ms, Max: 0.0006ms, Diff: 0.0005)
+       100 - 0.0000213ms/shape :: 0.0021ms (Min: 0.0021ms, Max: 0.0027ms, Diff: 0.0006)
+     1,000 - 0.0000238ms/shape :: 0.0238ms (Min: 0.0213ms, Max: 0.203ms, Diff: 0.1817)
+    10,000 - 0.0000206ms/shape :: 0.2056ms (Min: 0.2002ms, Max: 0.2368ms, Diff: 0.0366)
+   100,000 - 0.0000204ms/shape :: 2.0424ms (Min: 1.9992ms, Max: 2.6772ms, Diff: 0.6780)
+ 1,000,000 - 0.0000203ms/shape :: 20.2775ms (Min: 20.0735ms, Max: 21.0041ms, Diff: 0.9306)
+
 ```
 
 ## Observations ##
@@ -89,3 +105,5 @@ Using the strategy pattern has to really improve Developer/Development Maintaina
 
 
 This exercise was Inspired by ["Clean" Code, Horrible Performance](https://www.computerenhance.com/p/clean-code-horrible-performance)
+
+Another Blog doing similar analysis and conclusions: https://davidkroell.com/blog/2022/switch-is-faster-than-if/

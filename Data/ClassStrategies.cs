@@ -34,6 +34,27 @@ public static class ClassStrategies
         return LazyStrategyCache.Value[(int)shape.ShapeType];
     }
 
+    public static IAreaStrategy GetStrategy2(Shape shape)
+    {
+        return shape.ShapeType switch
+        {
+            ShapeType.Rectangle => new RectangleArea(),
+            ShapeType.Circle => new CircleArea(),
+            ShapeType.Triangle => new TriangleArea(),
+            ShapeType.Shape0 => new ShapeArea(0.05),
+            ShapeType.Shape1 => new ShapeArea(0.1),
+            ShapeType.Shape2 => new ShapeArea(0.2),
+            ShapeType.Shape3 => new ShapeArea(0.3),
+            ShapeType.Shape4 => new ShapeArea(0.4),
+            ShapeType.Shape5 => new ShapeArea(0.5),
+            ShapeType.Shape6 => new ShapeArea(0.6),
+            ShapeType.Shape7 => new ShapeArea(0.7),
+            ShapeType.Shape8 => new ShapeArea(0.8),
+            ShapeType.Shape9 => new ShapeArea(0.9),
+            _ => throw new NotSupportedException()
+        };
+    }
+
     public interface IAreaStrategy { double CalculateArea(Shape shape); }
 
     public class RectangleArea : IAreaStrategy

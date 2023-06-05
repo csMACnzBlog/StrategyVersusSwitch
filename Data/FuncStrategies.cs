@@ -35,4 +35,26 @@ public static class FuncStrategies
     {
         return LazyStrategyCache.Value[(int)shape.ShapeType];
     }
+    
+
+    public static Func<Shape, double> GetStrategy2(Shape shape)
+    {
+        return shape.ShapeType switch
+        {
+            ShapeType.Rectangle => item => item.Width * item.Height,
+            ShapeType.Circle => item => Math.PI * item.Radius * item.Radius,
+            ShapeType.Triangle => item => item.Width * 0.5 * item.Height,
+            ShapeType.Shape0 => item => 0.05 * item.Width * item.Width * item.Radius,
+            ShapeType.Shape1 => item => 0.1 * item.Width * item.Width * item.Radius,
+            ShapeType.Shape2 => item => 0.2 * item.Width * item.Width * item.Radius,
+            ShapeType.Shape3 => item => 0.3 * item.Width * item.Width * item.Radius,
+            ShapeType.Shape4 => item => 0.4 * item.Width * item.Width * item.Radius,
+            ShapeType.Shape5 => item => 0.5 * item.Width * item.Width * item.Radius,
+            ShapeType.Shape6 => item => 0.6 * item.Width * item.Width * item.Radius,
+            ShapeType.Shape7 => item => 0.7 * item.Width * item.Width * item.Radius,
+            ShapeType.Shape8 => item => 0.8 * item.Width * item.Width * item.Radius,
+            ShapeType.Shape9 => item => 0.9 * item.Width * item.Width * item.Radius,
+            _ => throw new NotSupportedException()
+        };
+    }
 }

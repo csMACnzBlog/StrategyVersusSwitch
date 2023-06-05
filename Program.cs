@@ -19,8 +19,10 @@ Thread.CurrentThread.Priority = ThreadPriority.Highest;
 RunTest("If Checks", IfChecks);
 RunTest("Switch", Switch);
 RunTest("Switch Expression", SwitchExpression);
-RunTest("Class Strategy", StrategyClass);
-RunTest("Func Strategy", StrategyFunctions);
+RunTest("Class Strategy With Jump Table", StrategyClassWithJumpTable);
+RunTest("Func Strategy With Jump Table", StrategyFunctionsWithJumpTable);
+RunTest("Class Strategy Without Jump Table", StrategyClassWithoutJumpTable);
+RunTest("Func Strategy Without Jump Table", StrategyFunctionsWithoutJumpTable);
 
 void RunTest(string action, Func<Shape[], double> method)
 {
@@ -209,7 +211,7 @@ double SwitchExpression(Shape[] data)
     return result;
 }
 
-double StrategyClass(Shape[] data)
+double StrategyClassWithJumpTable(Shape[] data)
 {
     double result = 0;
     foreach (var item in data)
@@ -221,12 +223,36 @@ double StrategyClass(Shape[] data)
     return result;
 }
 
-double StrategyFunctions(Shape[] data)
+double StrategyFunctionsWithJumpTable(Shape[] data)
 {
     double result = 0;
     foreach (var item in data)
     {
         var strategy = FuncStrategies.GetStrategy(item);
+
+        result += strategy(item);
+    }
+    return result;
+}
+
+double StrategyClassWithoutJumpTable(Shape[] data)
+{
+    double result = 0;
+    foreach (var item in data)
+    {
+        var strategy = ClassStrategies.GetStrategy2(item);
+
+        result += strategy.CalculateArea(item);
+    }
+    return result;
+}
+
+double StrategyFunctionsWithoutJumpTable(Shape[] data)
+{
+    double result = 0;
+    foreach (var item in data)
+    {
+        var strategy = FuncStrategies.GetStrategy2(item);
 
         result += strategy(item);
     }

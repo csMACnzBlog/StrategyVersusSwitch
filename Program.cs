@@ -20,12 +20,14 @@ RunTest("Fast Check", FastCheck.Run);
 RunTest("If Checks", IfChecks);
 RunTest("Switch", Switch);
 RunTest("Switch Expression", SwitchExpression);
+RunTest("Static Functions Switch Expression", StaticFunctionSwitchExpression);
 RunTest("Class Strategy With Jump Table", StrategyClassWithJumpTable);
 RunTest("Lambda Strategy With Jump Table", StrategyLambdasWithJumpTable);
 RunTest("Static Func Strategy With Jump Table", StrategyStaticFunctionsWithJumpTable);
 RunTest("Class Strategy Without Jump Table", StrategyClassWithoutJumpTable);
 RunTest("Lambda Strategy Without Jump Table", StrategyLambdasWithoutJumpTable);
 RunTest("Static Func Strategy Without Jump Table", StrategyStaticFunctionsWithoutJumpTable);
+
 
 void RunTest(string action, Func<Shape[], double> method)
 {
@@ -216,6 +218,33 @@ double SwitchExpression(Shape[] data)
             ShapeType.Shape7 => 0.7 * item.DimX * item.DimX,
             ShapeType.Shape8 => 0.8 * item.DimX * item.DimX,
             ShapeType.Shape9 => 0.9 * item.DimX * item.DimX,
+            _ => throw new NotSupportedException()
+        };
+    }
+    return result;
+}
+
+double StaticFunctionSwitchExpression(Shape[] data)
+{
+    double result = 0;
+    foreach (var item in data)
+    {
+        result += item.ShapeType switch
+        {
+            ShapeType.Rectangle => StaticFunctions.RectangleArea(item),
+            ShapeType.Circle => StaticFunctions.CircleArea(item),
+            ShapeType.Triangle => StaticFunctions.TriangleArea(item),
+            ShapeType.Oval => StaticFunctions.OvalArea(item),
+            ShapeType.Shape0 => StaticFunctions.Shape0Area(item),
+            ShapeType.Shape1 => StaticFunctions.Shape1Area(item),
+            ShapeType.Shape2 => StaticFunctions.Shape2Area(item),
+            ShapeType.Shape3 => StaticFunctions.Shape3Area(item),
+            ShapeType.Shape4 => StaticFunctions.Shape4Area(item),
+            ShapeType.Shape5 => StaticFunctions.Shape5Area(item),
+            ShapeType.Shape6 => StaticFunctions.Shape6Area(item),
+            ShapeType.Shape7 => StaticFunctions.Shape7Area(item),
+            ShapeType.Shape8 => StaticFunctions.Shape8Area(item),
+            ShapeType.Shape9 => StaticFunctions.Shape9Area(item),
             _ => throw new NotSupportedException()
         };
     }

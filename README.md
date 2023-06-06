@@ -29,69 +29,96 @@ representative enough of a real space. I added some dummy extra ones to bulk the
 // N items in an array, 100 repeats each with average, min and max calculated
 //       N - ms/shape          :: average total loop count (Min: min loop duration, Max: max loop duration, Diff: difference across repeats)
 
+Fast Check:
+        10 - 0.0000110ms/shape :: 0.0001ms (Min: 0.0001ms, Max: 0.0008ms, Diff: 0.0007)
+       100 - 0.0000086ms/shape :: 0.0009ms (Min: 0.0008ms, Max: 0.0012ms, Diff: 0.0004)
+     1,000 - 0.0000118ms/shape :: 0.0118ms (Min: 0.0078ms, Max: 0.3688ms, Diff: 0.3610)
+    10,000 - 0.0000020ms/shape :: 0.0197ms (Min: 0.0191ms, Max: 0.0294ms, Diff: 0.0103)
+   100,000 - 0.0000014ms/shape :: 0.1422ms (Min: 0.1328ms, Max: 0.1921ms, Diff: 0.0593)
+ 1,000,000 - 0.0000031ms/shape :: 3.1312ms (Min: 2.8944ms, Max: 4.0691ms, Diff: 1.1747)
+
 If Checks:
-        10 - 0.0000163ms/shape :: 0.0002ms (Min: 0.0001ms, Max: 0.0006ms, Diff: 0.0005)
-       100 - 0.0000150ms/shape :: 0.0015ms (Min: 0.0013ms, Max: 0.0022ms, Diff: 0.0009)
-     1,000 - 0.0000265ms/shape :: 0.0265ms (Min: 0.0176ms, Max: 0.8417ms, Diff: 0.8241)
-    10,000 - 0.0000096ms/shape :: 0.0963ms (Min: 0.0938ms, Max: 0.135ms, Diff: 0.0412)
-   100,000 - 0.0000086ms/shape :: 0.8616ms (Min: 0.8233ms, Max: 0.9648ms, Diff: 0.1415)
- 1,000,000 - 0.0000086ms/shape :: 8.5673ms (Min: 8.3418ms, Max: 9.5006ms, Diff: 1.1588)
+        10 - 0.0000193ms/shape :: 0.0002ms (Min: 0.0001ms, Max: 0.0004ms, Diff: 0.0003)
+       100 - 0.0000158ms/shape :: 0.0016ms (Min: 0.0015ms, Max: 0.0019ms, Diff: 0.0004)
+     1,000 - 0.0000274ms/shape :: 0.0274ms (Min: 0.0181ms, Max: 0.8572ms, Diff: 0.8391)
+    10,000 - 0.0000098ms/shape :: 0.0975ms (Min: 0.0931ms, Max: 0.1156ms, Diff: 0.0225)
+   100,000 - 0.0000087ms/shape :: 0.8685ms (Min: 0.841ms, Max: 0.9591ms, Diff: 0.1181)
+ 1,000,000 - 0.0000086ms/shape :: 8.6335ms (Min: 8.4531ms, Max: 8.9435ms, Diff: 0.4904)
 
 Switch:
-        10 - 0.0000094ms/shape :: 0.0001ms (Min: 0ms, Max: 0.0002ms, Diff: 0.0002)
-       100 - 0.0000107ms/shape :: 0.0011ms (Min: 0.001ms, Max: 0.0011ms, Diff: 0.0001)
-     1,000 - 0.0000252ms/shape :: 0.0252ms (Min: 0.0179ms, Max: 0.6718ms, Diff: 0.6539)
-    10,000 - 0.0000098ms/shape :: 0.0980ms (Min: 0.0941ms, Max: 0.1219ms, Diff: 0.0278)
-   100,000 - 0.0000088ms/shape :: 0.8821ms (Min: 0.8512ms, Max: 0.9204ms, Diff: 0.0692)
- 1,000,000 - 0.0000087ms/shape :: 8.7338ms (Min: 8.5389ms, Max: 8.9291ms, Diff: 0.3902)
+        10 - 0.0000088ms/shape :: 0.0001ms (Min: 0ms, Max: 0.0002ms, Diff: 0.0002)
+       100 - 0.0000074ms/shape :: 0.0007ms (Min: 0.0007ms, Max: 0.001ms, Diff: 0.0003)
+     1,000 - 0.0000230ms/shape :: 0.0230ms (Min: 0.016ms, Max: 0.6497ms, Diff: 0.6337)
+    10,000 - 0.0000094ms/shape :: 0.0941ms (Min: 0.0917ms, Max: 0.1026ms, Diff: 0.0109)
+   100,000 - 0.0000084ms/shape :: 0.8438ms (Min: 0.8182ms, Max: 0.8841ms, Diff: 0.0659)
+ 1,000,000 - 0.0000084ms/shape :: 8.4424ms (Min: 8.2997ms, Max: 8.673ms, Diff: 0.3733)
 
 Switch Expression:
-        10 - 0.0000101ms/shape :: 0.0001ms (Min: 0.0001ms, Max: 0.0002ms, Diff: 0.0001)
-       100 - 0.0000098ms/shape :: 0.0010ms (Min: 0.0009ms, Max: 0.0012ms, Diff: 0.0003)
-     1,000 - 0.0000248ms/shape :: 0.0248ms (Min: 0.0177ms, Max: 0.6915ms, Diff: 0.6738)
-    10,000 - 0.0000097ms/shape :: 0.0966ms (Min: 0.0936ms, Max: 0.1049ms, Diff: 0.0113)
-   100,000 - 0.0000085ms/shape :: 0.8453ms (Min: 0.8243ms, Max: 0.892ms, Diff: 0.0677)
- 1,000,000 - 0.0000086ms/shape :: 8.5640ms (Min: 8.4173ms, Max: 8.7489ms, Diff: 0.3316)
-Class Strategy With Jump Table:
-        10 - 0.0000192ms/shape :: 0.0002ms (Min: 0.0001ms, Max: 0.0018ms, Diff: 0.0017)
-       100 - 0.0000176ms/shape :: 0.0018ms (Min: 0.0017ms, Max: 0.0022ms, Diff: 0.0005)
-     1,000 - 0.0000205ms/shape :: 0.0205ms (Min: 0.0164ms, Max: 0.388ms, Diff: 0.3716)
-    10,000 - 0.0000119ms/shape :: 0.1191ms (Min: 0.1168ms, Max: 0.1719ms, Diff: 0.0551)
-   100,000 - 0.0000114ms/shape :: 1.1374ms (Min: 1.1033ms, Max: 1.2683ms, Diff: 0.1650)
- 1,000,000 - 0.0000115ms/shape :: 11.5422ms (Min: 11.3631ms, Max: 12.1826ms, Diff: 0.8195)
+        10 - 0.0000095ms/shape :: 0.0001ms (Min: 0ms, Max: 0.0001ms, Diff: 0.0001)
+       100 - 0.0000075ms/shape :: 0.0008ms (Min: 0.0007ms, Max: 0.0009ms, Diff: 0.0002)
+     1,000 - 0.0000238ms/shape :: 0.0238ms (Min: 0.0165ms, Max: 0.634ms, Diff: 0.6175)
+    10,000 - 0.0000093ms/shape :: 0.0930ms (Min: 0.0906ms, Max: 0.1263ms, Diff: 0.0357)
+   100,000 - 0.0000083ms/shape :: 0.8268ms (Min: 0.8051ms, Max: 0.8687ms, Diff: 0.0636)
+ 1,000,000 - 0.0000083ms/shape :: 8.3131ms (Min: 8.1624ms, Max: 8.6228ms, Diff: 0.4604)
 
-Func Strategy With Jump Table:
-        10 - 0.0000248ms/shape :: 0.0002ms (Min: 0.0002ms, Max: 0.0018ms, Diff: 0.0016)
-       100 - 0.0000259ms/shape :: 0.0026ms (Min: 0.0025ms, Max: 0.0029ms, Diff: 0.0004)
-     1,000 - 0.0000302ms/shape :: 0.0302ms (Min: 0.0255ms, Max: 0.3922ms, Diff: 0.3667)
-    10,000 - 0.0000179ms/shape :: 0.1793ms (Min: 0.1711ms, Max: 0.2142ms, Diff: 0.0431)
-   100,000 - 0.0000169ms/shape :: 1.6906ms (Min: 1.6555ms, Max: 1.7574ms, Diff: 0.1019)
- 1,000,000 - 0.0000169ms/shape :: 16.8721ms (Min: 16.5575ms, Max: 17.2304ms, Diff: 0.6729)
+Class Strategy With Jump Table:
+        10 - 0.0000268ms/shape :: 0.0003ms (Min: 0.0001ms, Max: 0.0071ms, Diff: 0.0070)
+       100 - 0.0000182ms/shape :: 0.0018ms (Min: 0.0018ms, Max: 0.002ms, Diff: 0.0002)
+     1,000 - 0.0000216ms/shape :: 0.0216ms (Min: 0.0178ms, Max: 0.3594ms, Diff: 0.3416)
+    10,000 - 0.0000133ms/shape :: 0.1330ms (Min: 0.1266ms, Max: 0.1484ms, Diff: 0.0218)
+   100,000 - 0.0000124ms/shape :: 1.2419ms (Min: 1.2225ms, Max: 1.3194ms, Diff: 0.0969)
+ 1,000,000 - 0.0000125ms/shape :: 12.4834ms (Min: 12.2773ms, Max: 12.8046ms, Diff: 0.5273)
+
+Lambda Strategy With Jump Table:
+        10 - 0.0000192ms/shape :: 0.0002ms (Min: 0.0001ms, Max: 0.0014ms, Diff: 0.0013)
+       100 - 0.0000253ms/shape :: 0.0025ms (Min: 0.0023ms, Max: 0.0106ms, Diff: 0.0083)
+     1,000 - 0.0000268ms/shape :: 0.0268ms (Min: 0.0226ms, Max: 0.3477ms, Diff: 0.3251)
+    10,000 - 0.0000153ms/shape :: 0.1534ms (Min: 0.1474ms, Max: 0.1918ms, Diff: 0.0444)
+   100,000 - 0.0000144ms/shape :: 1.4383ms (Min: 1.4089ms, Max: 1.498ms, Diff: 0.0891)
+ 1,000,000 - 0.0000143ms/shape :: 14.3396ms (Min: 14.2046ms, Max: 14.6244ms, Diff: 0.4198)
+
+Static Func Strategy With Jump Table:
+        10 - 0.0000116ms/shape :: 0.0001ms (Min: 0.0001ms, Max: 0.0004ms, Diff: 0.0003)
+       100 - 0.0000158ms/shape :: 0.0016ms (Min: 0.0015ms, Max: 0.0017ms, Diff: 0.0002)
+     1,000 - 0.0000232ms/shape :: 0.0232ms (Min: 0.0196ms, Max: 0.3275ms, Diff: 0.3079)
+    10,000 - 0.0000143ms/shape :: 0.1434ms (Min: 0.1388ms, Max: 0.1779ms, Diff: 0.0391)
+   100,000 - 0.0000134ms/shape :: 1.3428ms (Min: 1.3165ms, Max: 1.4036ms, Diff: 0.0871)
+ 1,000,000 - 0.0000134ms/shape :: 13.3845ms (Min: 13.2292ms, Max: 15.0009ms, Diff: 1.7717)
 
 Class Strategy Without Jump Table:
-        10 - 0.0000436ms/shape :: 0.0004ms (Min: 0.0002ms, Max: 0.0079ms, Diff: 0.0077)
-       100 - 0.0000365ms/shape :: 0.0037ms (Min: 0.0026ms, Max: 0.0095ms, Diff: 0.0069)
-     1,000 - 0.0000388ms/shape :: 0.0388ms (Min: 0.033ms, Max: 0.2384ms, Diff: 0.2054)
-    10,000 - 0.0000405ms/shape :: 0.4053ms (Min: 0.2632ms, Max: 10.6652ms, Diff: 10.4020)
-   100,000 - 0.0000274ms/shape :: 2.7389ms (Min: 2.5808ms, Max: 3.0112ms, Diff: 0.4304)
- 1,000,000 - 0.0000274ms/shape :: 27.3644ms (Min: 26.8763ms, Max: 28.2118ms, Diff: 1.3355)
+        10 - 0.0000356ms/shape :: 0.0004ms (Min: 0.0002ms, Max: 0.0031ms, Diff: 0.0029)
+       100 - 0.0000370ms/shape :: 0.0037ms (Min: 0.0028ms, Max: 0.0084ms, Diff: 0.0056)
+     1,000 - 0.0000392ms/shape :: 0.0392ms (Min: 0.033ms, Max: 0.2312ms, Diff: 0.1982)
+    10,000 - 0.0000554ms/shape :: 0.5539ms (Min: 0.2539ms, Max: 17.3243ms, Diff: 17.0704)
+   100,000 - 0.0000274ms/shape :: 2.7388ms (Min: 2.546ms, Max: 3.0527ms, Diff: 0.5067)
+ 1,000,000 - 0.0000277ms/shape :: 27.6766ms (Min: 26.9672ms, Max: 28.3966ms, Diff: 1.4294)
 
-Func Strategy Without Jump Table:
-        10 - 0.0000182ms/shape :: 0.0002ms (Min: 0.0001ms, Max: 0.0006ms, Diff: 0.0005)
-       100 - 0.0000213ms/shape :: 0.0021ms (Min: 0.0021ms, Max: 0.0027ms, Diff: 0.0006)
-     1,000 - 0.0000238ms/shape :: 0.0238ms (Min: 0.0213ms, Max: 0.203ms, Diff: 0.1817)
-    10,000 - 0.0000206ms/shape :: 0.2056ms (Min: 0.2002ms, Max: 0.2368ms, Diff: 0.0366)
-   100,000 - 0.0000204ms/shape :: 2.0424ms (Min: 1.9992ms, Max: 2.6772ms, Diff: 0.6780)
- 1,000,000 - 0.0000203ms/shape :: 20.2775ms (Min: 20.0735ms, Max: 21.0041ms, Diff: 0.9306)
+Lambda Strategy Without Jump Table:
+        10 - 0.0000184ms/shape :: 0.0002ms (Min: 0.0001ms, Max: 0.0007ms, Diff: 0.0006)
+       100 - 0.0000225ms/shape :: 0.0023ms (Min: 0.0022ms, Max: 0.0024ms, Diff: 0.0002)
+     1,000 - 0.0000237ms/shape :: 0.0237ms (Min: 0.0211ms, Max: 0.2159ms, Diff: 0.1948)
+    10,000 - 0.0000204ms/shape :: 0.2044ms (Min: 0.199ms, Max: 0.2287ms, Diff: 0.0297)
+   100,000 - 0.0000200ms/shape :: 2.0035ms (Min: 1.9615ms, Max: 2.0865ms, Diff: 0.1250)
+ 1,000,000 - 0.0000201ms/shape :: 20.0666ms (Min: 19.7824ms, Max: 21.1721ms, Diff: 1.3897)
+
+Static Func Strategy Without Jump Table:
+        10 - 0.0000207ms/shape :: 0.0002ms (Min: 0.0001ms, Max: 0.0015ms, Diff: 0.0014)
+       100 - 0.0000236ms/shape :: 0.0024ms (Min: 0.0023ms, Max: 0.0034ms, Diff: 0.0011)
+     1,000 - 0.0000261ms/shape :: 0.0261ms (Min: 0.0235ms, Max: 0.2277ms, Diff: 0.2042)
+    10,000 - 0.0000220ms/shape :: 0.2204ms (Min: 0.2103ms, Max: 0.2454ms, Diff: 0.0351)
+   100,000 - 0.0000219ms/shape :: 2.1936ms (Min: 2.1137ms, Max: 2.3146ms, Diff: 0.2009)
+ 1,000,000 - 0.0000216ms/shape :: 21.6153ms (Min: 21.2336ms, Max: 22.1892ms, Diff: 0.9556)
 
 ```
 
 ## Observations ##
 
+Fast Check is super fast! (always look for algorithmic replacements for perf increases instead of micro-optimising language features!)
+
 It was hard to test the jump logic only and some of the algorithmic complexity is likely affecting the results.
 
-Both strategy patterns come at a performance cost. They also seem to come at a readability cost - though could be due to the simplistic nature of the calculation.
-My preference for readability (again, for such simplistic algorithms) is the switch expression. This also seems to be the fastest, comparible to raw `if` checks.
+Strategy patterns come at a performance cost. They also seem to come at a readability cost - though could be due to the simplistic nature of the calculation.
+My preference for readability (again, for such simplistic algorithms) is the switch expression. This also seems to be the fastest (comparing apples to apples), comparible to raw `if` checks.
 
 the comparison between `switch`, `if` and switch expression varies at different scales and the margin of error isn't great for comparing definitively.
 

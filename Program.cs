@@ -16,13 +16,16 @@ if (OperatingSystem.IsWindows() || OperatingSystem.IsLinux())
 //prevent "Normal" Threads from interrupting this thread
 Thread.CurrentThread.Priority = ThreadPriority.Highest;
 
+RunTest("Fast Check", FastCheck.Run);
 RunTest("If Checks", IfChecks);
 RunTest("Switch", Switch);
 RunTest("Switch Expression", SwitchExpression);
 RunTest("Class Strategy With Jump Table", StrategyClassWithJumpTable);
-RunTest("Func Strategy With Jump Table", StrategyFunctionsWithJumpTable);
+RunTest("Lambda Strategy With Jump Table", StrategyLambdasWithJumpTable);
+RunTest("Static Func Strategy With Jump Table", StrategyStaticFunctionsWithJumpTable);
 RunTest("Class Strategy Without Jump Table", StrategyClassWithoutJumpTable);
-RunTest("Func Strategy Without Jump Table", StrategyFunctionsWithoutJumpTable);
+RunTest("Lambda Strategy Without Jump Table", StrategyLambdasWithoutJumpTable);
+RunTest("Static Func Strategy Without Jump Table", StrategyStaticFunctionsWithoutJumpTable);
 
 void RunTest(string action, Func<Shape[], double> method)
 {
@@ -64,63 +67,67 @@ double IfChecks(Shape[] data)
         double area;
         if (item.ShapeType is ShapeType.Rectangle)
         {
-            area = item.Width * item.Height;
+            area = item.DimX * item.DimY;
         }
         else if (item.ShapeType is ShapeType.Circle)
         {
-            area = Math.PI * item.Radius * item.Radius;
+            area = Math.PI * item.DimX * item.DimY;
         }
         else if (item.ShapeType is ShapeType.Triangle)
         {
-            area = item.Width * 0.5 * item.Height;
+            area = item.DimX * 0.5 * item.DimY;
+        }
+        else if (item.ShapeType is ShapeType.Oval)
+        {
+            area = Math.PI * item.DimX * item.DimY;
         }
         else if (item.ShapeType is ShapeType.Shape0)
         {
-            area = 0.05 * item.Width * item.Width * item.Radius;
+            area = 0.05 * item.DimX * item.DimX;
         }
         else if (item.ShapeType is ShapeType.Shape1)
         {
-            area = 0.1 * item.Width * item.Width * item.Radius;
+            area = 0.1 * item.DimX * item.DimX;
         }
 
         else if (item.ShapeType is ShapeType.Shape2)
         {
-            area = 0.2 * item.Width * item.Width * item.Radius;
+            area = 0.2 * item.DimX * item.DimX;
         }
 
         else if (item.ShapeType is ShapeType.Shape3)
         {
-            area = 0.3 * item.Width * item.Width * item.Radius;
+            area = 0.3 * item.DimX * item.DimX;
         }
 
         else if (item.ShapeType is ShapeType.Shape4)
         {
-            area = 0.4 * item.Width * item.Width * item.Radius;
+            area = 0.4 * item.DimX * item.DimX;
         }
 
         else if (item.ShapeType is ShapeType.Shape5)
         {
-            area = 0.5 * item.Width * item.Width * item.Radius;
+            area = 0.5 * item.DimX * item.DimX;
         }
 
         else if (item.ShapeType is ShapeType.Shape6)
         {
-            area = 0.6 * item.Width * item.Width * item.Radius;
+            area = 0.6 * item.DimX * item.DimX;
         }
 
         else if (item.ShapeType is ShapeType.Shape7)
         {
-            area = 0.7 * item.Width * item.Width * item.Radius;
+            area = 0.7 * item.DimX * item.DimX;
         }
 
         else if (item.ShapeType is ShapeType.Shape8)
         {
-            area = 0.8 * item.Width * item.Width * item.Radius;
+            area = 0.8 * item.DimX * item.DimX;
         }
 
         else if (item.ShapeType is ShapeType.Shape9)
         {
-            area = 0.9 * item.Width * item.Width * item.Radius;
+            area = 0.9 * item.DimX * item.DimX;
         }
 
         else
@@ -140,43 +147,46 @@ double Switch(Shape[] data)
         switch (item.ShapeType)
         {
             case ShapeType.Rectangle:
-                result += item.Width * item.Height;
+                result += item.DimX * item.DimY;
                 break;
             case ShapeType.Circle:
-                result += Math.PI * item.Radius * item.Radius;
+                result += Math.PI * item.DimX * item.DimY;
                 break;
             case ShapeType.Triangle:
-                result += item.Width * 0.5 * item.Height;
+                result += item.DimX * 0.5 * item.DimY;
+                break;
+            case ShapeType.Oval:
+                result += Math.PI * item.DimX * item.DimY;
                 break;
             case ShapeType.Shape0:
-                result += 0.05 * item.Width * item.Width * item.Radius;
+                result += 0.05 * item.DimX * item.DimX;
                 break;
             case ShapeType.Shape1:
-                result += 0.1 * item.Width * item.Width * item.Radius;
+                result += 0.1 * item.DimX * item.DimX;
                 break;
             case ShapeType.Shape2:
-                result += 0.2 * item.Width * item.Width * item.Radius;
+                result += 0.2 * item.DimX * item.DimX;
                 break;
             case ShapeType.Shape3:
-                result += 0.3 * item.Width * item.Width * item.Radius;
+                result += 0.3 * item.DimX * item.DimX;
                 break;
             case ShapeType.Shape4:
-                result += 0.4 * item.Width * item.Width * item.Radius;
+                result += 0.4 * item.DimX * item.DimX;
                 break;
             case ShapeType.Shape5:
-                result += 0.5 * item.Width * item.Width * item.Radius;
+                result += 0.5 * item.DimX * item.DimX;
                 break;
             case ShapeType.Shape6:
-                result += 0.6 * item.Width * item.Width * item.Radius;
+                result += 0.6 * item.DimX * item.DimX;
                 break;
             case ShapeType.Shape7:
-                result += 0.7 * item.Width * item.Width * item.Radius;
+                result += 0.7 * item.DimX * item.DimX;
                 break;
             case ShapeType.Shape8:
-                result += 0.8 * item.Width * item.Width * item.Radius;
+                result += 0.8 * item.DimX * item.DimX;
                 break;
             case ShapeType.Shape9:
-                result += 0.9 * item.Width * item.Width * item.Radius;
+                result += 0.9 * item.DimX * item.DimX;
                 break;
             default:
                 throw new NotSupportedException();
@@ -192,19 +202,20 @@ double SwitchExpression(Shape[] data)
     {
         result += item.ShapeType switch
         {
-            ShapeType.Rectangle => item.Width * item.Height,
-            ShapeType.Circle => Math.PI * item.Radius * item.Radius,
-            ShapeType.Triangle => item.Width * 0.5 * item.Height,
-            ShapeType.Shape0 => 0.05 * item.Width * item.Width * item.Radius,
-            ShapeType.Shape1 => 0.1 * item.Width * item.Width * item.Radius,
-            ShapeType.Shape2 => 0.2 * item.Width * item.Width * item.Radius,
-            ShapeType.Shape3 => 0.3 * item.Width * item.Width * item.Radius,
-            ShapeType.Shape4 => 0.4 * item.Width * item.Width * item.Radius,
-            ShapeType.Shape5 => 0.5 * item.Width * item.Width * item.Radius,
-            ShapeType.Shape6 => 0.6 * item.Width * item.Width * item.Radius,
-            ShapeType.Shape7 => 0.7 * item.Width * item.Width * item.Radius,
-            ShapeType.Shape8 => 0.8 * item.Width * item.Width * item.Radius,
-            ShapeType.Shape9 => 0.9 * item.Width * item.Width * item.Radius,
+            ShapeType.Rectangle => item.DimX * item.DimY,
+            ShapeType.Circle => Math.PI * item.DimX * item.DimY,
+            ShapeType.Triangle => item.DimX * 0.5 * item.DimY,
+            ShapeType.Oval => Math.PI * item.DimX * item.DimY,
+            ShapeType.Shape0 => 0.05 * item.DimX * item.DimX,
+            ShapeType.Shape1 => 0.1 * item.DimX * item.DimX,
+            ShapeType.Shape2 => 0.2 * item.DimX * item.DimX,
+            ShapeType.Shape3 => 0.3 * item.DimX * item.DimX,
+            ShapeType.Shape4 => 0.4 * item.DimX * item.DimX,
+            ShapeType.Shape5 => 0.5 * item.DimX * item.DimX,
+            ShapeType.Shape6 => 0.6 * item.DimX * item.DimX,
+            ShapeType.Shape7 => 0.7 * item.DimX * item.DimX,
+            ShapeType.Shape8 => 0.8 * item.DimX * item.DimX,
+            ShapeType.Shape9 => 0.9 * item.DimX * item.DimX,
             _ => throw new NotSupportedException()
         };
     }
@@ -223,12 +234,24 @@ double StrategyClassWithJumpTable(Shape[] data)
     return result;
 }
 
-double StrategyFunctionsWithJumpTable(Shape[] data)
+double StrategyLambdasWithJumpTable(Shape[] data)
 {
     double result = 0;
     foreach (var item in data)
     {
-        var strategy = FuncStrategies.GetStrategy(item);
+        var strategy = LambdaFuncStrategies.GetStrategy(item);
+
+        result += strategy(item);
+    }
+    return result;
+}
+
+double StrategyStaticFunctionsWithJumpTable(Shape[] data)
+{
+    double result = 0;
+    foreach (var item in data)
+    {
+        var strategy = StaticFuncStrategies.GetStrategy(item);
 
         result += strategy(item);
     }
@@ -247,12 +270,24 @@ double StrategyClassWithoutJumpTable(Shape[] data)
     return result;
 }
 
-double StrategyFunctionsWithoutJumpTable(Shape[] data)
+double StrategyLambdasWithoutJumpTable(Shape[] data)
 {
     double result = 0;
     foreach (var item in data)
     {
-        var strategy = FuncStrategies.GetStrategy2(item);
+        var strategy = LambdaFuncStrategies.GetStrategy2(item);
+
+        result += strategy(item);
+    }
+    return result;
+}
+
+double StrategyStaticFunctionsWithoutJumpTable(Shape[] data)
+{
+    double result = 0;
+    foreach (var item in data)
+    {
+        var strategy = StaticFuncStrategies.GetStrategy2(item);
 
         result += strategy(item);
     }

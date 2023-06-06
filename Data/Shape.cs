@@ -4,30 +4,34 @@ public class Shape
 {
     public static Shape Rectangle(double width, double height)
     {
-        return new Shape { ShapeType = ShapeType.Rectangle, Width = width, Height = height };
+        return new Shape { ShapeType = ShapeType.Rectangle, DimX = width, DimY = height };
     }
+
     public static Shape Circle(double radius)
     {
-        return new Shape { ShapeType = ShapeType.Circle, Radius = radius };
+        return new Shape { ShapeType = ShapeType.Circle, DimX = radius, DimY = radius };
     }
 
     public static Shape Triangle(double width, double height)
     {
-        return new Shape { ShapeType = ShapeType.Triangle, Width = width, Height = height };
+        return new Shape { ShapeType = ShapeType.Triangle, DimX = width, DimY = height };
+    }
+    
+    public static Shape Oval(double radiusX, double radiusY)
+    {
+        return new Shape { ShapeType = ShapeType.Oval, DimX = radiusX, DimY = radiusY };
     }
 
-    public static Shape AShape(ShapeType type, double width, double height, double radius)
+    public static Shape AShape(ShapeType type, double dimX, double dimY)
     {
-        return new Shape { ShapeType = type, Width = width, Height = height, Radius = radius };
+        return new Shape { ShapeType = type, DimX = dimX, DimY = dimY };
     }
 
     public ShapeType ShapeType { get; set; }
 
-    public double Width { get; set; }
+    public double DimX { get; set; } // Width, RadiusX
 
-    public double Height { get; set; }
-
-    public double Radius { get; set; }
+    public double DimY { get; set; } // Height, RadiusY
 
     private static Dictionary<(int seed, int itemCount), Shape[]> _cache = new();
 
@@ -47,16 +51,17 @@ public class Shape
                 ShapeType.Rectangle => Shape.Rectangle(r.Next(), r.Next()),
                 ShapeType.Circle => Shape.Circle(r.Next()),
                 ShapeType.Triangle => Shape.Triangle(r.Next(), r.Next()),
-                ShapeType.Shape0 => Shape.AShape(ShapeType.Shape0, r.Next(), r.Next(), r.Next()),
-                ShapeType.Shape1 => Shape.AShape(ShapeType.Shape1, r.Next(), r.Next(), r.Next()),
-                ShapeType.Shape2 => Shape.AShape(ShapeType.Shape2, r.Next(), r.Next(), r.Next()),
-                ShapeType.Shape3 => Shape.AShape(ShapeType.Shape3, r.Next(), r.Next(), r.Next()),
-                ShapeType.Shape4 => Shape.AShape(ShapeType.Shape4, r.Next(), r.Next(), r.Next()),
-                ShapeType.Shape5 => Shape.AShape(ShapeType.Shape5, r.Next(), r.Next(), r.Next()),
-                ShapeType.Shape6 => Shape.AShape(ShapeType.Shape6, r.Next(), r.Next(), r.Next()),
-                ShapeType.Shape7 => Shape.AShape(ShapeType.Shape7, r.Next(), r.Next(), r.Next()),
-                ShapeType.Shape8 => Shape.AShape(ShapeType.Shape8, r.Next(), r.Next(), r.Next()),
-                ShapeType.Shape9 => Shape.AShape(ShapeType.Shape9, r.Next(), r.Next(), r.Next()),
+                ShapeType.Oval => Shape.Oval(r.Next(), r.Next()),
+                ShapeType.Shape0 => Shape.AShape(ShapeType.Shape0, r.Next(), r.Next()),
+                ShapeType.Shape1 => Shape.AShape(ShapeType.Shape1, r.Next(), r.Next()),
+                ShapeType.Shape2 => Shape.AShape(ShapeType.Shape2, r.Next(), r.Next()),
+                ShapeType.Shape3 => Shape.AShape(ShapeType.Shape3, r.Next(), r.Next()),
+                ShapeType.Shape4 => Shape.AShape(ShapeType.Shape4, r.Next(), r.Next()),
+                ShapeType.Shape5 => Shape.AShape(ShapeType.Shape5, r.Next(), r.Next()),
+                ShapeType.Shape6 => Shape.AShape(ShapeType.Shape6, r.Next(), r.Next()),
+                ShapeType.Shape7 => Shape.AShape(ShapeType.Shape7, r.Next(), r.Next()),
+                ShapeType.Shape8 => Shape.AShape(ShapeType.Shape8, r.Next(), r.Next()),
+                ShapeType.Shape9 => Shape.AShape(ShapeType.Shape9, r.Next(), r.Next()),
                 _ => throw new NotImplementedException()
             })
         .ToArray();
@@ -71,6 +76,7 @@ public enum ShapeType
     Rectangle,
     Circle,
     Triangle,
+    Oval,
 
     // Extras for scale testing
     Shape0,

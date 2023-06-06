@@ -14,6 +14,7 @@ public static class ClassStrategies
                 ShapeType.Rectangle => new RectangleArea(),
                 ShapeType.Circle => new CircleArea(),
                 ShapeType.Triangle => new TriangleArea(),
+                ShapeType.Oval => new OvalArea(),
                 ShapeType.Shape0 => new ShapeArea(0.05),
                 ShapeType.Shape1 => new ShapeArea(0.1),
                 ShapeType.Shape2 => new ShapeArea(0.2),
@@ -41,6 +42,7 @@ public static class ClassStrategies
             ShapeType.Rectangle => new RectangleArea(),
             ShapeType.Circle => new CircleArea(),
             ShapeType.Triangle => new TriangleArea(),
+            ShapeType.Oval => new OvalArea(),
             ShapeType.Shape0 => new ShapeArea(0.05),
             ShapeType.Shape1 => new ShapeArea(0.1),
             ShapeType.Shape2 => new ShapeArea(0.2),
@@ -61,27 +63,34 @@ public static class ClassStrategies
     {
         public double CalculateArea(Shape shape)
         {
-            return shape.Width * shape.Height;
+            return shape.DimX * shape.DimY;
         }
     }
-
 
     public class CircleArea : IAreaStrategy
     {
         public double CalculateArea(Shape shape)
         {
-            return Math.PI * shape.Radius * shape.Radius;
+            return Math.PI * shape.DimX * shape.DimY;
         }
     }
-
 
     public class TriangleArea : IAreaStrategy
     {
         public double CalculateArea(Shape shape)
         {
-            return shape.Width * 0.5 * shape.Height;
+            return shape.DimX * 0.5 * shape.DimY;
         }
     }
+
+    public class OvalArea : IAreaStrategy
+    {
+        public double CalculateArea(Shape shape)
+        {
+            return Math.PI * shape.DimX * shape.DimY;
+        }
+    }
+
     public class ShapeArea : IAreaStrategy
     {
         private readonly double _multiplier;
@@ -93,7 +102,7 @@ public static class ClassStrategies
 
         public double CalculateArea(Shape shape)
         {
-            return _multiplier * shape.Width * shape.Height;
+            return _multiplier * shape.DimX * shape.DimY;
         }
     }
 }

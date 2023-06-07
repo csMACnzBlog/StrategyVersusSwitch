@@ -25,99 +25,153 @@ representative enough of a real space. I added some dummy extra ones to bulk the
 
 ## Results ##
 
+item count is the number of items iterated over through the switching logic. There are 14 different types switched on.
+
 ```
-// N items in an array, 100 repeats each with average, min and max calculated
-//       N - ms/shape          :: average total loop count (Min: min loop duration, Max: max loop duration, Diff: difference across repeats)
+// * Summary *
 
-Fast Check:
-        10 - 0.0000110ms/shape :: 0.0001ms (Min: 0.0001ms, Max: 0.0005ms, Diff: 0.0004)
-       100 - 0.0000078ms/shape :: 0.0008ms (Min: 0.0007ms, Max: 0.0008ms, Diff: 0.0001)
-     1,000 - 0.0000115ms/shape :: 0.0115ms (Min: 0.0075ms, Max: 0.3278ms, Diff: 0.3203)
-    10,000 - 0.0000020ms/shape :: 0.0196ms (Min: 0.019ms, Max: 0.0242ms, Diff: 0.0052)
-   100,000 - 0.0000013ms/shape :: 0.1259ms (Min: 0.1225ms, Max: 0.1427ms, Diff: 0.0202)
- 1,000,000 - 0.0000027ms/shape :: 2.7107ms (Min: 2.5695ms, Max: 3.3234ms, Diff: 0.7539)
+BenchmarkDotNet=v0.13.5, OS=Windows 11 (10.0.22621.1702/22H2/2022Update/SunValley2)
+AMD Ryzen 9 3900X, 1 CPU, 24 logical and 12 physical cores
+.NET SDK=7.0.302
+  [Host]     : .NET 7.0.5 (7.0.523.17405), X64 RyuJIT AVX2
+  Job-KZXBZW : .NET 7.0.5 (7.0.523.17405), X64 RyuJIT AVX2
 
-If Checks:
-        10 - 0.0000182ms/shape :: 0.0002ms (Min: 0.0001ms, Max: 0.0003ms, Diff: 0.0002)
-       100 - 0.0000159ms/shape :: 0.0016ms (Min: 0.0015ms, Max: 0.0019ms, Diff: 0.0004)
-     1,000 - 0.0000267ms/shape :: 0.0267ms (Min: 0.018ms, Max: 0.8358ms, Diff: 0.8178)
-    10,000 - 0.0000094ms/shape :: 0.0942ms (Min: 0.0911ms, Max: 0.1045ms, Diff: 0.0134)
-   100,000 - 0.0000083ms/shape :: 0.8301ms (Min: 0.8129ms, Max: 0.9052ms, Diff: 0.0923)
- 1,000,000 - 0.0000084ms/shape :: 8.3536ms (Min: 8.1706ms, Max: 8.5874ms, Diff: 0.4168)
+Runtime=.NET 7.0  InvocationCount=10  IterationCount=5
+LaunchCount=1  RunStrategy=Throughput  UnrollFactor=1
+WarmupCount=5
 
-Switch:
-        10 - 0.0000082ms/shape :: 0.0001ms (Min: 0ms, Max: 0.0002ms, Diff: 0.0002)
-       100 - 0.0000093ms/shape :: 0.0009ms (Min: 0.0009ms, Max: 0.001ms, Diff: 0.0001)
-     1,000 - 0.0000236ms/shape :: 0.0236ms (Min: 0.0167ms, Max: 0.6568ms, Diff: 0.6401)
-    10,000 - 0.0000097ms/shape :: 0.0971ms (Min: 0.0939ms, Max: 0.135ms, Diff: 0.0411)
-   100,000 - 0.0000086ms/shape :: 0.8575ms (Min: 0.8221ms, Max: 0.9078ms, Diff: 0.0857)
- 1,000,000 - 0.0000085ms/shape :: 8.4866ms (Min: 8.2991ms, Max: 8.756ms, Diff: 0.4569)
+|                                  Method | itemCount |             Mean |           Error |         StdDev |
+|---------------------------------------- |---------- |-----------------:|----------------:|---------------:|
+|                               FastCheck |        10 |        114.00 ns |        21.09 ns |       5.477 ns |
+|                                IfChecks |        10 |        160.00 ns |        74.62 ns |      11.547 ns |
+|                                  Switch |        10 |         96.00 ns |        21.09 ns |       5.477 ns |
+|                        SwitchExpression |        10 |        116.00 ns |        34.44 ns |       8.944 ns |
+|          StaticFunctionSwitchExpression |        10 |        134.00 ns |        58.40 ns |      15.166 ns |
+|              StrategyClassWithJumpTable |        10 |        160.00 ns |        54.46 ns |      14.142 ns |
+|            StrategyLambdasWithJumpTable |        10 |        166.00 ns |        34.44 ns |       8.944 ns |
+|    StrategyStaticFunctionsWithJumpTable |        10 |        192.50 ns |       122.32 ns |      18.930 ns |
+|           StrategyClassWithoutJumpTable |        10 |        350.00 ns |       443.24 ns |     115.109 ns |
+|         StrategyLambdasWithoutJumpTable |        10 |        257.50 ns |       122.32 ns |      18.930 ns |
+| StrategyStaticFunctionsWithoutJumpTable |        10 |        238.00 ns |        63.27 ns |      16.432 ns |
+|                               FastCheck |       100 |      1,034.00 ns |       658.90 ns |     171.114 ns |
+|                                IfChecks |       100 |      1,668.00 ns |       200.83 ns |      52.154 ns |
+|                                  Switch |       100 |        902.00 ns |        95.88 ns |      24.900 ns |
+|                        SwitchExpression |       100 |        980.00 ns |       130.58 ns |      33.912 ns |
+|          StaticFunctionSwitchExpression |       100 |      1,130.00 ns |        47.16 ns |      12.247 ns |
+|              StrategyClassWithJumpTable |       100 |      1,675.00 ns |        64.62 ns |      10.000 ns |
+|            StrategyLambdasWithJumpTable |       100 |      1,625.00 ns |       111.92 ns |      17.321 ns |
+|    StrategyStaticFunctionsWithJumpTable |       100 |      1,647.50 ns |       161.55 ns |      25.000 ns |
+|           StrategyClassWithoutJumpTable |       100 |      2,647.50 ns |       295.54 ns |      45.735 ns |
+|         StrategyLambdasWithoutJumpTable |       100 |      2,560.00 ns |       130.58 ns |      33.912 ns |
+| StrategyStaticFunctionsWithoutJumpTable |       100 |      2,422.00 ns |        68.88 ns |      17.889 ns |
+|                               FastCheck |      1000 |      8,306.00 ns |       169.17 ns |      43.932 ns |
+|                                IfChecks |      1000 |     19,182.00 ns |     1,423.02 ns |     369.554 ns |
+|                                  Switch |      1000 |     17,270.00 ns |       428.64 ns |      66.332 ns |
+|                        SwitchExpression |      1000 |     18,025.00 ns |       291.39 ns |      45.092 ns |
+|          StaticFunctionSwitchExpression |      1000 |     19,622.00 ns |     3,891.00 ns |   1,010.480 ns |
+|              StrategyClassWithJumpTable |      1000 |     18,280.00 ns |       765.78 ns |     198.872 ns |
+|            StrategyLambdasWithJumpTable |      1000 |     20,132.50 ns |       143.29 ns |      22.174 ns |
+|    StrategyStaticFunctionsWithJumpTable |      1000 |     21,554.00 ns |     1,420.73 ns |     368.958 ns |
+|           StrategyClassWithoutJumpTable |      1000 |     27,664.00 ns |     3,547.88 ns |     921.374 ns |
+|         StrategyLambdasWithoutJumpTable |      1000 |     26,574.00 ns |     4,228.93 ns |   1,098.240 ns |
+| StrategyStaticFunctionsWithoutJumpTable |      1000 |     24,158.00 ns |       781.31 ns |     202.904 ns |
+|                               FastCheck |     10000 |     19,530.00 ns |     1,711.31 ns |     264.827 ns |
+|                                IfChecks |     10000 |     95,650.00 ns |     6,964.13 ns |   1,808.563 ns |
+|                                  Switch |     10000 |     98,077.50 ns |     6,197.53 ns |     959.075 ns |
+|                        SwitchExpression |     10000 |     99,930.00 ns |     8,972.16 ns |   1,388.452 ns |
+|          StaticFunctionSwitchExpression |     10000 |    127,108.00 ns |    11,950.66 ns |   3,103.550 ns |
+|              StrategyClassWithJumpTable |     10000 |    130,455.00 ns |     9,341.77 ns |   1,445.649 ns |
+|            StrategyLambdasWithJumpTable |     10000 |    149,932.00 ns |    30,268.65 ns |   7,860.672 ns |
+|    StrategyStaticFunctionsWithJumpTable |     10000 |    149,422.00 ns |     3,622.21 ns |     940.675 ns |
+|           StrategyClassWithoutJumpTable |     10000 |    239,135.00 ns |    29,542.18 ns |   4,571.685 ns |
+|         StrategyLambdasWithoutJumpTable |     10000 |    233,462.50 ns |     4,066.91 ns |     629.358 ns |
+| StrategyStaticFunctionsWithoutJumpTable |     10000 |    231,789.00 ns |    19,613.84 ns |   5,093.651 ns |
+|                               FastCheck |    100000 |    126,908.00 ns |     5,088.64 ns |   1,321.503 ns |
+|                                IfChecks |    100000 |    855,264.00 ns |    41,438.11 ns |  10,761.347 ns |
+|                                  Switch |    100000 |    860,586.00 ns |    31,788.30 ns |   8,255.321 ns |
+|                        SwitchExpression |    100000 |    882,220.00 ns |    21,898.30 ns |   3,388.785 ns |
+|          StaticFunctionSwitchExpression |    100000 |  1,237,770.00 ns |    56,493.53 ns |  14,671.191 ns |
+|              StrategyClassWithJumpTable |    100000 |  1,254,710.00 ns |    40,837.12 ns |  10,605.270 ns |
+|            StrategyLambdasWithJumpTable |    100000 |  1,339,550.00 ns |    14,164.68 ns |   2,192.001 ns |
+|    StrategyStaticFunctionsWithJumpTable |    100000 |  1,433,430.00 ns |    36,793.20 ns |   9,555.077 ns |
+|           StrategyClassWithoutJumpTable |    100000 |  2,365,322.50 ns |   106,547.54 ns |  16,488.350 ns |
+|         StrategyLambdasWithoutJumpTable |    100000 |  2,277,926.00 ns |    34,288.28 ns |   8,904.557 ns |
+| StrategyStaticFunctionsWithoutJumpTable |    100000 |  2,185,900.00 ns |    65,322.56 ns |  16,964.061 ns |
+|                               FastCheck |   1000000 |  3,172,192.50 ns |   823,337.21 ns | 127,412.344 ns |
+|                                IfChecks |   1000000 |  8,553,153.00 ns |   400,722.39 ns | 104,066.331 ns |
+|                                  Switch |   1000000 |  8,592,271.00 ns |   375,155.82 ns |  97,426.776 ns |
+|                        SwitchExpression |   1000000 |  8,565,988.00 ns | 1,003,424.23 ns | 260,586.086 ns |
+|          StaticFunctionSwitchExpression |   1000000 |  9,599,897.50 ns |   471,711.34 ns |  72,997.852 ns |
+|              StrategyClassWithJumpTable |   1000000 |  8,988,830.00 ns |   283,975.52 ns |  73,747.542 ns |
+|            StrategyLambdasWithJumpTable |   1000000 |  9,420,686.00 ns |   300,014.17 ns |  77,912.728 ns |
+|    StrategyStaticFunctionsWithJumpTable |   1000000 | 10,225,740.00 ns |   109,420.45 ns |  16,932.935 ns |
+|           StrategyClassWithoutJumpTable |   1000000 | 16,305,002.00 ns | 1,203,821.83 ns | 312,628.706 ns |
+|         StrategyLambdasWithoutJumpTable |   1000000 | 12,241,712.50 ns |    63,754.66 ns |   9,866.105 ns |
+| StrategyStaticFunctionsWithoutJumpTable |   1000000 | 13,361,335.00 ns |   308,519.39 ns |  47,743.717 ns |
 
-Switch Expression:
-        10 - 0.0000079ms/shape :: 0.0001ms (Min: 0ms, Max: 0.0002ms, Diff: 0.0002)
-       100 - 0.0000088ms/shape :: 0.0009ms (Min: 0.0008ms, Max: 0.0009ms, Diff: 0.0001)
-     1,000 - 0.0000241ms/shape :: 0.0241ms (Min: 0.0175ms, Max: 0.6331ms, Diff: 0.6156)
-    10,000 - 0.0000099ms/shape :: 0.0992ms (Min: 0.0943ms, Max: 0.1137ms, Diff: 0.0194)
-   100,000 - 0.0000089ms/shape :: 0.8932ms (Min: 0.8574ms, Max: 0.9837ms, Diff: 0.1263)
- 1,000,000 - 0.0000087ms/shape :: 8.6805ms (Min: 8.5066ms, Max: 8.9661ms, Diff: 0.4595)
+```
 
-Static Functions Switch Expression:
-        10 - 0.0000126ms/shape :: 0.0001ms (Min: 0.0001ms, Max: 0.0007ms, Diff: 0.0006)
-       100 - 0.0000175ms/shape :: 0.0017ms (Min: 0.0017ms, Max: 0.002ms, Diff: 0.0003)
-     1,000 - 0.0000260ms/shape :: 0.0260ms (Min: 0.0211ms, Max: 0.4328ms, Diff: 0.4117)
-    10,000 - 0.0000140ms/shape :: 0.1400ms (Min: 0.1372ms, Max: 0.1507ms, Diff: 0.0135)
-   100,000 - 0.0000132ms/shape :: 1.3192ms (Min: 1.2969ms, Max: 1.4331ms, Diff: 0.1362)
- 1,000,000 - 0.0000134ms/shape :: 13.4381ms (Min: 13.1358ms, Max: 14.5464ms, Diff: 1.4106)
+(Results ordered by fastest at 1M scale.)
 
-Class Strategy With Jump Table:
-        10 - 0.0000219ms/shape :: 0.0002ms (Min: 0.0001ms, Max: 0.0017ms, Diff: 0.0016)
-       100 - 0.0000159ms/shape :: 0.0016ms (Min: 0.0015ms, Max: 0.0018ms, Diff: 0.0003)
-     1,000 - 0.0000204ms/shape :: 0.0204ms (Min: 0.0163ms, Max: 0.3205ms, Diff: 0.3042)
-    10,000 - 0.0000125ms/shape :: 0.1246ms (Min: 0.1226ms, Max: 0.1371ms, Diff: 0.0145)
-   100,000 - 0.0000121ms/shape :: 1.2099ms (Min: 1.1749ms, Max: 1.2546ms, Diff: 0.0797)
- 1,000,000 - 0.0000120ms/shape :: 11.9709ms (Min: 11.7484ms, Max: 12.6681ms, Diff: 0.9197)
+```mermaid
+gantt
+    title Type Switching Performance
+    dateFormat  X
+    axisFormat %s
 
-Lambda Strategy With Jump Table:
-        10 - 0.0000132ms/shape :: 0.0001ms (Min: 0.0001ms, Max: 0.0007ms, Diff: 0.0006)
-       100 - 0.0000151ms/shape :: 0.0015ms (Min: 0.0015ms, Max: 0.0017ms, Diff: 0.0002)
-     1,000 - 0.0000230ms/shape :: 0.0230ms (Min: 0.0191ms, Max: 0.3278ms, Diff: 0.3087)
-    10,000 - 0.0000133ms/shape :: 0.1329ms (Min: 0.1281ms, Max: 0.1513ms, Diff: 0.0232)
-   100,000 - 0.0000126ms/shape :: 1.2622ms (Min: 1.2253ms, Max: 1.3183ms, Diff: 0.0930)
- 1,000,000 - 0.0000127ms/shape :: 12.6927ms (Min: 12.4098ms, Max: 12.9578ms, Diff: 0.5480)
+    section 10 items
+    FastCheck                               : 0, 114
+    IfChecks                                : 0, 160
+    SwitchExpression                        : 0, 116
+    Switch                                  : 0,  96
+    StrategyClassWithJumpTable              : 0, 160
+    StrategyLambdasWithJumpTable            : 0, 166
+    StaticFunctionSwitchExpression          : 0, 134
+    StrategyStaticFunctionsWithJumpTable    : 0, 192
+    StrategyLambdasWithoutJumpTable         : 0, 257
+    StrategyStaticFunctionsWithoutJumpTable : 0, 238
+    StrategyClassWithoutJumpTable           : 0, 350
+```
 
-Static Func Strategy With Jump Table:
-        10 - 0.0000170ms/shape :: 0.0002ms (Min: 0.0001ms, Max: 0.0008ms, Diff: 0.0007)
-       100 - 0.0000181ms/shape :: 0.0018ms (Min: 0.0017ms, Max: 0.0023ms, Diff: 0.0006)
-     1,000 - 0.0000240ms/shape :: 0.0240ms (Min: 0.0199ms, Max: 0.3168ms, Diff: 0.2969)
-    10,000 - 0.0000146ms/shape :: 0.1459ms (Min: 0.1415ms, Max: 0.1886ms, Diff: 0.0471)
-   100,000 - 0.0000141ms/shape :: 1.4091ms (Min: 1.3474ms, Max: 1.4803ms, Diff: 0.1329)
- 1,000,000 - 0.0000141ms/shape :: 14.1047ms (Min: 13.8202ms, Max: 14.574ms, Diff: 0.7538)
+```mermaid
+gantt
+    title Type Switching Performance
+    dateFormat  X
+    axisFormat %s
 
-Class Strategy Without Jump Table:
-        10 - 0.0000323ms/shape :: 0.0003ms (Min: 0.0001ms, Max: 0.0046ms, Diff: 0.0045)
-       100 - 0.0000332ms/shape :: 0.0033ms (Min: 0.0024ms, Max: 0.0175ms, Diff: 0.0151)
-     1,000 - 0.0000361ms/shape :: 0.0361ms (Min: 0.0309ms, Max: 0.2326ms, Diff: 0.2017)
-    10,000 - 0.0000536ms/shape :: 0.5356ms (Min: 0.2351ms, Max: 14.0535ms, Diff: 13.8184)
-   100,000 - 0.0000244ms/shape :: 2.4364ms (Min: 2.3085ms, Max: 2.8862ms, Diff: 0.5777)
- 1,000,000 - 0.0000251ms/shape :: 25.1282ms (Min: 24.706ms, Max: 25.7872ms, Diff: 1.0812)
-
-Lambda Strategy Without Jump Table:
-        10 - 0.0000184ms/shape :: 0.0002ms (Min: 0.0001ms, Max: 0.0006ms, Diff: 0.0005)
-       100 - 0.0000215ms/shape :: 0.0021ms (Min: 0.0021ms, Max: 0.0022ms, Diff: 0.0001)
-     1,000 - 0.0000237ms/shape :: 0.0237ms (Min: 0.0211ms, Max: 0.1992ms, Diff: 0.1781)
-    10,000 - 0.0000202ms/shape :: 0.2019ms (Min: 0.1918ms, Max: 0.2498ms, Diff: 0.0580)
-   100,000 - 0.0000195ms/shape :: 1.9517ms (Min: 1.9053ms, Max: 2.0546ms, Diff: 0.1493)
- 1,000,000 - 0.0000196ms/shape :: 19.6419ms (Min: 19.321ms, Max: 20.4619ms, Diff: 1.1409)
-
-Static Func Strategy Without Jump Table:
-        10 - 0.0000190ms/shape :: 0.0002ms (Min: 0.0001ms, Max: 0.0004ms, Diff: 0.0003)
-       100 - 0.0000225ms/shape :: 0.0023ms (Min: 0.0022ms, Max: 0.0023ms, Diff: 0.0001)
-     1,000 - 0.0000245ms/shape :: 0.0245ms (Min: 0.0215ms, Max: 0.2385ms, Diff: 0.2170)
-    10,000 - 0.0000202ms/shape :: 0.2022ms (Min: 0.1961ms, Max: 0.2476ms, Diff: 0.0515)
-   100,000 - 0.0000200ms/shape :: 1.9983ms (Min: 1.9645ms, Max: 2.0958ms, Diff: 0.1313)
- 1,000,000 - 0.0000202ms/shape :: 20.1976ms (Min: 19.8736ms, Max: 20.6171ms, Diff: 0.7435)
+    section 1000 items
+    FastCheck                               : 0, 8306
+    IfChecks                                : 0, 19182
+    SwitchExpression                        : 0, 18025
+    Switch                                  : 0, 17270
+    StrategyClassWithJumpTable              : 0, 18280
+    StrategyLambdasWithJumpTable            : 0, 20132
+    StaticFunctionSwitchExpression          : 0, 19622
+    StrategyStaticFunctionsWithJumpTable    : 0, 21554
+    StrategyLambdasWithoutJumpTable         : 0, 26574
+    StrategyStaticFunctionsWithoutJumpTable : 0, 24158
+    StrategyClassWithoutJumpTable           : 0, 27664
+```
 
 
+```mermaid
+gantt
+    title Type Switching Performance
+    dateFormat  X
+    axisFormat %s
+
+    section 1,000,000 items
+      FastCheck                               : 0, 3172192
+      IfChecks                                : 0, 8553153
+      SwitchExpression                        : 0, 8565988
+      Switch                                  : 0, 8592271
+      StrategyClassWithJumpTable              : 0, 8988830
+      StrategyLambdasWithJumpTable            : 0, 9420686
+      StaticFunctionSwitchExpression          : 0, 9599897
+      StrategyStaticFunctionsWithJumpTable    : 0, 10225740
+      StrategyLambdasWithoutJumpTable         : 0, 12241712
+      StrategyStaticFunctionsWithoutJumpTable : 0, 13361335
+      StrategyClassWithoutJumpTable           : 0, 16305002
 ```
 
 ## Observations ##
@@ -125,6 +179,18 @@ Static Func Strategy Without Jump Table:
 Fast Check is super fast! (always look for algorithmic replacements for perf increases instead of micro-optimising language features!)
 
 It was hard to test the jump logic only and some of the algorithmic complexity is likely affecting the results.
+
+There are 4 groupings observed:
+* Fast Check
+  * Fastest at scale - uncessary or detrimental without that scale.
+* language-based switching constructs (if, switch, switch expression)
+  * Use any one, all very similar in performance through scale though at small scale switch and switch expression outperform.
+* Strategy with Jump table (+ switch expression calling static functions*)
+  * Can't beat a raw language construct, but less impactful at scale - complexity affects readability so may be better to throw out entirely rather than introduce jump table?
+* Strategy without jump table
+  * these are just ripe for performance improving optimisations in all cases.
+
+*"switch expression calling static functions" turns out to be as variable as the jump table versions across the scaling so grouped into that camp - maybe agressive inlining might make a perf difference here?
 
 Strategy patterns come at a performance cost. They also seem to come at a readability cost - though could be due to the simplistic nature of the calculation.
 My preference for readability (again, for such simplistic algorithms) is the switch expression. This also seems to be the fastest (comparing apples to apples), comparible to raw `if` checks.

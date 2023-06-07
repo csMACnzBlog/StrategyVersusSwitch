@@ -3,9 +3,8 @@ using StrategyVersusSwitch.Data;
 
 namespace StrategyVersusSwitch;
 
-public static class FastCheck
+public static class FastCheckCache
 {
-
     public static Lazy<double[]> LazyMultiplierCache = new Lazy<double[]>(() =>
     {
         var result = new (ShapeType shapeType, double)[]
@@ -32,18 +31,5 @@ public static class FastCheck
         Debug.Assert(result.Length == (int)ShapeType.NumberOfShapes);
         return result;
     });
-
-
-
-    public static double Run(Shape[] data)
-    {
-        double result = 0;
-        foreach (var item in data)
-        {
-            double area =
-            result += LazyMultiplierCache.Value[(int)item.ShapeType] * item.DimX * item.DimY; ;
-        }
-        return result;
-    }
 
 }
